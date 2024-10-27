@@ -20,7 +20,12 @@ public class World {
         for (int yy = 0; yy < 15*2; yy++){
             blocos.add(new Blocks(640-32,yy*32));
         }
+
+        blocos.add(new Blocks(200, 200));
+
     }
+
+
 
     public static  boolean isFree(int x, int y) {
         for (int i = 0; i < blocos.size(); i++) {
@@ -35,5 +40,6 @@ public class World {
         for (int i = 0; i < blocos.size(); i++) {
             blocos.get(i).render(g);
         }
+
     }
 }

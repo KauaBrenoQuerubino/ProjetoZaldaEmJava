@@ -1,11 +1,12 @@
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-public class Player extends Rectangle{
+public class Inimigos extends Rectangle{
 
-    public int spd = 4;
-    public boolean right, up, down, left;
+    public int spd = 2;
+    public int right = 1, up = 0, down = 0, left = 0;
 
     public int curAnimation = 0;
 
@@ -16,34 +17,38 @@ public class Player extends Rectangle{
     public boolean shoot = false;
 
     public int dir = 1;
-    public Player(int x, int y) {
+    public Inimigos(int x, int y) {
         super(x,y,38,75);
     }
 
-    public void tick() {
-        boolean moved = false;
-        if (right && World.isFree(x+spd, y)) {
+    public void perseguirPlayer() {
+        Player p = Game.player;
+
+        if (x < p.x && World.isFree(x + spd, y)) {
+
             x+=spd;
-            moved = true;
-            dir = 1;
-        } else if (left && World.isFree(x-spd, y)) {
+        } else if (x> p.x && World.isFree(x - spd, y)) {
+
             x-=spd;
-            moved = true;
-            dir = -1;
         }
-        if (up && World.isFree(x, y-spd)) {
-            y-=spd;
-            moved = true;
-        } else if (down && World.isFree(x, y+spd)) {
+        if (y< p.y && World.isFree(x,y + spd)){
+
             y+=spd;
-            moved = true;
+        }else if (y> p.y  && World.isFree(x,y - spd)){
+
+            y-=spd;
         }
-        if (moved) {
+    }
+
+    public void tick() {
+        boolean moved = true;
+        perseguirPlayer();
+        if (moved ) {
             curFrame++;
             if (curFrame == targetFrame) {
                 curFrame = 0;
                 curAnimation++;
-                if (curAnimation == Spritesheet.player_front.length) {
+                if (curAnimation == Spritesheet.enemy_front.length) {
                     curAnimation = 0;
                 }
             }
@@ -61,7 +66,7 @@ public class Player extends Rectangle{
     public void render(Graphics g){
         //g.setColor(Color.blue);
         //g.fillRect(x,y,width,height);
-        g.drawImage(Spritesheet.player_front[curAnimation], x, y, 42, 42,null);
+        g.drawImage(Spritesheet.enemy_front[curAnimation], x, y, 42, 42,null);
 
         for (int i = 0; i < bullets.size(); i++){
             bullets.get(i).render(g);
