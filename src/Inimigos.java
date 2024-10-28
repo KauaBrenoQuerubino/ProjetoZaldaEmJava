@@ -38,8 +38,6 @@ public class Inimigos extends Rectangle{
         }
     }
 
-
-
     public void dead(int x, int y){
         Player p = Game.player;
         if ( p.x == x && y == p.y){
