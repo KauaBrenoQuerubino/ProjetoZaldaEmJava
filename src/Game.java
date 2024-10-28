@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Game extends Canvas implements Runnable, KeyListener {
 
-
+    public static JFrame frame = new JFrame();
     public static int WIDTH = 640, HEIGHT = 480;
     public static int SCALE = 3;
     public static Player player;
@@ -21,7 +21,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         new Spritesheet();
         player = new Player(32,32);
-        inimigos.add(new Inimigos(32, 32));
+        inimigos.add(new Inimigos(300, 300));
 
         world = new World();
     }
@@ -57,7 +57,6 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     public static void main(String[] args) {
         Game game = new Game();
-        JFrame frame = new JFrame();
 
         frame.add(game);
         frame.setTitle("Zelda");

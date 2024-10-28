@@ -22,6 +22,7 @@ public class Player extends Rectangle{
 
     public void tick() {
         boolean moved = false;
+
         if (right && World.isFree(x+spd, y)) {
             x+=spd;
             moved = true;

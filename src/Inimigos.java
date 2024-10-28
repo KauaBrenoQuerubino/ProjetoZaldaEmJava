@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,25 +26,32 @@ public class Inimigos extends Rectangle{
         Player p = Game.player;
 
         if (x < p.x && World.isFree(x + spd, y)) {
-
+            dead(x, y);
             x+=spd;
         } else if (x> p.x && World.isFree(x - spd, y)) {
-
             x-=spd;
         }
         if (y< p.y && World.isFree(x,y + spd)){
-
             y+=spd;
         }else if (y> p.y  && World.isFree(x,y - spd)){
-
             y-=spd;
+        }
+    }
+
+
+
+    public void dead(int x, int y){
+        Player p = Game.player;
+        if ( p.x == x && y == p.y){
+            System.exit(0);
         }
     }
 
     public void tick() {
         boolean moved = true;
         perseguirPlayer();
-        if (moved ) {
+        dead(x, y);
+        if (moved) {
             curFrame++;
             if (curFrame == targetFrame) {
                 curFrame = 0;
